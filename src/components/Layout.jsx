@@ -57,7 +57,6 @@ export function Layout() {
     top: 0,
     left: 0,
     width: "100%",
-    // height: "50px",
     backgroundColor: "#f8f9fa",
     display: "flex",
     justifyContent: "flex-end",
@@ -77,6 +76,20 @@ export function Layout() {
     cursor: "pointer",
   };
 
+  const footerStyle = {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    backgroundColor: "#f8f9fa",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px",
+    boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+  };
+
   return (
     <>
       <div style={headerStyle}>
@@ -91,6 +104,7 @@ export function Layout() {
       >
         <button style={buttonStyle}>ボタン</button>
       </div>
+      <div style={footerStyle}></div>
     </>
   );
 }
