@@ -13,11 +13,14 @@
   height: 100vh;
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  overflow: hidden;
+  transition: transform 0.3s ease; /* トランジション効果を追加 */
+  transform: translateX(-100%); /* 初期状態で非表示 */
+}
+
+.sideber.open {
+  transform: translateX(0); /* サイドバーを表示 */
 }
 
 .menu {
