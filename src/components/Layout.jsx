@@ -7,6 +7,7 @@ export function Layout() {
   const clampScale = (s) => Math.min(Math.max(s, 0.2), 3);
 
   const handleWheel = (e) => {
+    if (!e.ctrlKey) return; // Ctrlキーが押されていない場合は何もしない
     e.preventDefault();
 
     const delta = e.deltaY;
@@ -31,7 +32,7 @@ export function Layout() {
     transform: `scale(${scale})`,
     transformOrigin: origin,
     transition: "transform 0.2s ease, transform-origin 0.2s ease",
-    backgroundColor: 'white',
+    backgroundColor: "white",
   };
 
   const buttonStyle = {
@@ -47,7 +48,11 @@ export function Layout() {
   };
 
   return (
-    <div style={containerStyle} onWheel={handleWheel}>
+    <div
+      style={containerStyle}
+      onWheel={handleWheel}
+      tabIndex={0} // フォーカス可能にする
+    >
       <button style={buttonStyle}>ボタン</button>
     </div>
   );
