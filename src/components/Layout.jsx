@@ -28,12 +28,18 @@ export function Layout() {
     setOrigin("50% 50%"); // 原点を中央にリセット
   };
 
+  const headerHeight = "50px";
+  const footerHeight = "50px";
+  const panelWidth = "200px";
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
-    width: "100vw",
+    height: `calc(100vh - ${headerHeight} - ${footerHeight})`, // ヘッダーとフッターの間の高さ
+    width: `calc(100vw - ${panelWidth} * 2)`, // 左右パネルの間の幅
+    marginTop: headerHeight, // ヘッダーの高さ分下げる
+    marginLeft: panelWidth, // 左パネルの幅分右にずらす
     transform: `scale(${scale})`,
     transformOrigin: origin,
     transition: "transform 0.2s ease, transform-origin 0.2s ease",
@@ -57,6 +63,7 @@ export function Layout() {
     top: 0,
     left: 0,
     width: "100%",
+    height: headerHeight,
     backgroundColor: "#f8f9fa",
     display: "flex",
     justifyContent: "flex-end",
@@ -81,12 +88,41 @@ export function Layout() {
     bottom: 0,
     left: 0,
     width: "100%",
+    height: footerHeight,
     backgroundColor: "#f8f9fa",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: "10px",
     boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+  };
+
+  const leftPanelStyle = {
+    position: "fixed",
+    top: headerHeight, // ヘッダーの下に配置
+    left: 0,
+    height: `calc(100vh - ${headerHeight} - ${footerHeight})`, // ヘッダーとフッターの間の高さ
+    width: panelWidth,
+    backgroundColor: "#e9ecef",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "2px 0 4px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+  };
+
+  const rightPanelStyle = {
+    position: "fixed",
+    top: headerHeight, // ヘッダーの下に配置
+    right: 0,
+    height: `calc(100vh - ${headerHeight} - ${footerHeight})`, // ヘッダーとフッターの間の高さ
+    width: panelWidth,
+    backgroundColor: "#e9ecef",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "-2px 0 4px rgba(0, 0, 0, 0.1)",
     zIndex: 1000,
   };
 
@@ -97,6 +133,12 @@ export function Layout() {
           リセット
         </button>
       </div>
+      <div style={leftPanelStyle}>
+        <p>左パネル</p>
+      </div>
+      <div style={rightPanelStyle}>
+        <p>右パネル</p>
+      </div>
       <div
         style={containerStyle}
         onWheel={handleWheel}
@@ -104,7 +146,9 @@ export function Layout() {
       >
         <button style={buttonStyle}>ボタン</button>
       </div>
-      <div style={footerStyle}></div>
+      <div style={footerStyle}>
+        <p>フッターコンテンツ</p>
+      </div>
     </>
   );
 }
