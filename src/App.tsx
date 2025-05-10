@@ -1,13 +1,13 @@
-import Layout from './components/Layout';
-import './App.css'
+// import Layout from "./components/Layout";
+import SideBar from "./components/SideBar";
 
 function App() {
-
   return (
     <>
-      <Layout />
+      {/* <Layout /> */}
+      <SideBar />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
