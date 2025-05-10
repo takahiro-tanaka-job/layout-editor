@@ -52,10 +52,22 @@ export function Layout() {
     height: "600px",
   };
 
+  const headerStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    // height: "50px",
+    backgroundColor: "#f8f9fa",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    padding: "10px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+  };
+
   const resetButtonStyle = {
-    position: "fixed", // 画面全体に対して固定
-    top: "10px",
-    right: "10px",
     backgroundColor: "#28a745",
     color: "white",
     fontWeight: "bold",
@@ -63,11 +75,15 @@ export function Layout() {
     border: "none",
     borderRadius: "0.25rem",
     cursor: "pointer",
-    // zIndex: 1000, // 他の要素より前面に表示
   };
 
   return (
     <>
+      <div style={headerStyle}>
+        <button style={resetButtonStyle} onClick={resetScale}>
+          リセット
+        </button>
+      </div>
       <div
         style={containerStyle}
         onWheel={handleWheel}
@@ -75,9 +91,6 @@ export function Layout() {
       >
         <button style={buttonStyle}>ボタン</button>
       </div>
-      <button style={resetButtonStyle} onClick={resetScale}>
-        リセット
-      </button>
     </>
   );
 }
