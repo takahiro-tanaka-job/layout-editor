@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export function Layout() {
   const [scale, setScale] = useState(1);
   const [origin, setOrigin] = useState("50% 50%");
+  const [isFullScreen, setIsFullScreen] = useState(false); // 全画面表示状態
 
   const clampScale = (s) => Math.min(Math.max(s, 0.2), 3);
 
@@ -27,6 +28,27 @@ export function Layout() {
     setScale(1); // 拡大縮小を等倍にリセット
     setOrigin("50% 50%"); // 原点を中央にリセット
   };
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  };
+
+  // 全画面表示の状態を監視
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
 
   const headerHeight = "50px";
   const footerHeight = "50px";
@@ -65,7 +87,7 @@ export function Layout() {
     width: "100%",
     height: headerHeight,
     backgroundColor: "#f8f9fa",
-    display: "flex",
+    display: isFullScreen ? "none" : "flex", // 全画面表示時に非表示
     justifyContent: "flex-end",
     alignItems: "center",
     padding: "10px",
@@ -81,6 +103,17 @@ export function Layout() {
     border: "none",
     borderRadius: "0.25rem",
     cursor: "pointer",
+    marginRight: "10px", // ボタン間の余白
+  };
+
+  const fullScreenButtonStyle = {
+    backgroundColor: "#17a2b8",
+    color: "white",
+    fontWeight: "bold",
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "0.25rem",
+    cursor: "pointer",
   };
 
   const footerStyle = {
@@ -90,7 +123,7 @@ export function Layout() {
     width: "100%",
     height: footerHeight,
     backgroundColor: "#f8f9fa",
-    display: "flex",
+    display: isFullScreen ? "none" : "flex", // 全画面表示時に非表示
     justifyContent: "center",
     alignItems: "center",
     padding: "10px",
@@ -105,7 +138,7 @@ export function Layout() {
     height: `calc(100vh - ${headerHeight} - ${footerHeight})`, // ヘッダーとフッターの間の高さ
     width: panelWidth,
     backgroundColor: "#e9ecef",
-    display: "flex",
+    display: isFullScreen ? "none" : "flex", // 全画面表示時に非表示
     justifyContent: "center",
     alignItems: "center",
     boxShadow: "2px 0 4px rgba(0, 0, 0, 0.1)",
@@ -119,7 +152,7 @@ export function Layout() {
     height: `calc(100vh - ${headerHeight} - ${footerHeight})`, // ヘッダーとフッターの間の高さ
     width: panelWidth,
     backgroundColor: "#e9ecef",
-    display: "flex",
+    display: isFullScreen ? "none" : "flex", // 全画面表示時に非表示
     justifyContent: "center",
     alignItems: "center",
     boxShadow: "-2px 0 4px rgba(0, 0, 0, 0.1)",
@@ -131,6 +164,9 @@ export function Layout() {
       <div style={headerStyle}>
         <button style={resetButtonStyle} onClick={resetScale}>
           リセット
+        </button>
+        <button style={fullScreenButtonStyle} onClick={toggleFullScreen}>
+          全画面表示
         </button>
       </div>
       <div style={leftPanelStyle}>
