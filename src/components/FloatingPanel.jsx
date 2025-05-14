@@ -6,17 +6,18 @@ export function FloatingPanel({ children }) {
 
   // const _style = {
   //   position: "fixed",
-  //   left: "50px",
+  //   right: "50px",
   //   transition: "all 0.8s ease",
-  //   ...(isBottom ? { bottom: "50px" } : { top: "50px" }),
+  //   ...(isBottom ? { bottom: "0px" } : { top: "0px" }),
   // };
 
+  const top = 20;
   const _style = {
     position: "fixed",
+    top: `${top}px`,
     right: "50px",
-    transition: "transform 0.2s ease, opacity 0.2s ease",
-    transform: isBottom ? "translateY(calc(100vh - 100px))" : "translateY(0)",
-    opacity: isBottom ? 0.8 : 1, // 動きに合わせて透明度を変化
+    transition: "transform 0.5s ease", // transform にアニメーションを適用
+    transform: isBottom ? `translateY(calc(100vh - 100% - ${top * 2}px))` : "translateY(0)", // 上下の移動をスムーズに
   };
 
   const handleButtonClick = () => {
