@@ -15,6 +15,7 @@ function App() {
   const [width, setWidth] = React.useState(1028);
   const [preview, setpPeview] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(true);
+  const [fullScreen, setFullScreen] = React.useState(false);
 
   return (
     <div className={styles.root}>
@@ -37,24 +38,26 @@ function App() {
           </div>
         </Layout>
       </GridPanel>
-      <SideBar isOpen={isOpen}>
+      {(!preview && !fullScreen) && <SideBar isOpen={isOpen}>
         <h1>サイドバー</h1>
-      </SideBar>
+      </SideBar>}
       <FloatingPanel>
-        {preview
-          ? <>
-            <button className={styles.previewCancel} onClick={() => setpPeview(false)}>戻る</button>
-          </>
-          : <>
-            <button className={styles.resetButton} onClick={() => setIsOpen(!isOpen)} children="サイドバー" />
-            <button className={styles.resetButton} onClick={() => layoutRef.current?.resetScale()} children="リセット" />
-            <button className={styles.resetButton} onClick={() => layoutRef.current?.setScale(0.5)} children="50%" />
-            <button className={styles.resetButton} onClick={() => setWidth(1280)} children="1280" />
-            <button className={styles.resetButton} onClick={() => setWidth(768)} children="768" />
-            <button className={styles.resetButton} onClick={() => setWidth(480)} children="480" />
-            <button className={styles.resetButton} onClick={() => setpPeview(true)} children="プレビュー" />
-            <button className={styles.fullScreenButton} onClick={() => layoutRef.current?.toggleFullScreen()} children="全画面表示" />
-          </>}
+        {preview && <>
+          <button onClick={() => setpPeview(false)}>戻る</button>
+        </>}
+        {fullScreen && <>
+          <button onClick={() => setFullScreen(false)}>戻る</button>
+        </>}
+        {(!preview && !fullScreen) && <>
+          <button onClick={() => setIsOpen(!isOpen)} children="サイドバー" />
+          <button onClick={() => layoutRef.current?.resetScale()} children="リセット" />
+          <button onClick={() => layoutRef.current?.setScale(0.5)} children="50%" />
+          <button onClick={() => setWidth(1280)} children="1280" />
+          <button onClick={() => setWidth(768)} children="768" />
+          <button onClick={() => setWidth(480)} children="480" />
+          <button onClick={() => setpPeview(true)} children="プレビュー" />
+          <button onClick={() => setFullScreen(true)} children="全画面表示" />
+        </>}
       </FloatingPanel>
     </div>
   );
