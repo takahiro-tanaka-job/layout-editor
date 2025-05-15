@@ -7,7 +7,7 @@ export type LayoutHandle = {
   resetScale: () => void;
 };
 
-export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNode; }>((props, ref) => {
+export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNode }>((props, ref) => {
 
   React.useImperativeHandle(ref, () => ({
     setScale,
@@ -20,21 +20,26 @@ export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNod
   const clampScale = (s: number) => Math.min(Math.max(s, 0.2), 3);
 
   const handleWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    // Altキーを使用する
-    if (!e.altKey) return;
-    e.preventDefault();
+    if (e.shiftKey) {
+      // Shiftキーが押されている場合は横スクロール
+      e.preventDefault();
+      e.currentTarget.scrollLeft += e.deltaY; // 横スクロールを実現
+    } else if (e.altKey) {
+      // Altキーが押されている場合はズーム
+      e.preventDefault();
 
-    const delta = e.deltaY;
-    const scaleFactor = delta > 0 ? 0.9 : 1.1;
+      const delta = e.deltaY;
+      const scaleFactor = delta > 0 ? 0.9 : 1.1;
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const percentX = (x / rect.width) * 100;
-    const percentY = (y / rect.height) * 100;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const percentX = (x / rect.width) * 100;
+      const percentY = (y / rect.height) * 100;
 
-    setOrigin(`${percentX}% ${percentY}%`);
-    _setScale((prev) => clampScale(prev * scaleFactor));
+      setOrigin(`${percentX}% ${percentY}%`);
+      _setScale((prev) => clampScale(prev * scaleFactor));
+    }
   };
 
   const setScale = (scale: number) => {
@@ -56,11 +61,13 @@ export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNod
         // }}
         onWheel={handleWheel}
         tabIndex={0}
+        style={{
+          overflow: "auto", // 横スクロールを有効にする
+        }}
       >
         {/* props.children をラップしてスタイルを適用 */}
         {React.Children.map(props.children, (child) => {
           if (React.isValidElement(child)) {
-            // child の型を明示的に指定
             const element = child as React.ReactElement<any>;
             return React.cloneElement(element, {
               style: {
@@ -70,7 +77,6 @@ export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNod
               },
             });
           }
-          // 非 JSX 要素（文字列や数値など）はそのまま返す
           return child;
         })}
       </div>
