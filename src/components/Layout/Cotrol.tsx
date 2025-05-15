@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import styles from "./Layout.module.css";
+import styles from "./Cotrol.module.css";
 
 export type LayoutHandle = {
   setScale: (scale: number) => void;
   resetScale: () => void;
 };
 
-export const Layout = React.forwardRef<
+export const Cotrol = React.forwardRef<
   LayoutHandle,
   {
     children?: React.ReactNode;
@@ -95,4 +95,5 @@ export const Layout = React.forwardRef<
   );
 });
 
-export default Layout;
+Cotrol.displayName = "Layout";
+export default Cotrol;

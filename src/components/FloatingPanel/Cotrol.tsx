@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "./FloatingPanel.module.css";
+import styles from "./Cotrol.module.css";
 
-export const FloatingPanel = (props: { children: React.ReactNode }) => {
+export const Cotrol = (props: { children: React.ReactNode }) => {
   const [isBottom, setIsBottom] = useState(false);
 
   const top = 20;
@@ -27,5 +27,5 @@ export const FloatingPanel = (props: { children: React.ReactNode }) => {
   );
 };
 
-FloatingPanel.displayName = "FloatingPanel";
-export default FloatingPanel;
+Cotrol.displayName = "FloatingPanel";
+export default Cotrol;

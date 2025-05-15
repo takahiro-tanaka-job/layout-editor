@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 
-export const FullScreen = ({ children, isFullScreen, onFullScreenChange }: {
+export const Cotrol = ({ children, isFullScreen, onFullScreenChange }: {
   children?: React.ReactNode,
   isFullScreen: boolean,
   onFullScreenChange?: (isFullScreen: boolean) => void,
@@ -50,6 +50,6 @@ export const FullScreen = ({ children, isFullScreen, onFullScreenChange }: {
 }
 
 // メモ化しないとチラつく
-export const _FullScreen = React.memo(FullScreen);
-_FullScreen.displayName = "FullScreen";
-export default _FullScreen;
+export const _Cotrol = React.memo(Cotrol);
+_Cotrol.displayName = "FullScreen";
+export default _Cotrol;

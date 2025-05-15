@@ -1,12 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import Layout, { type LayoutHandle } from "./components/Layout";
-import SideBar from "./components/SideBar";
-import FullScreen from "./components/FullScreen";
-import FloatingPanel from "./components/FloatingPanel";
-import GridPanel from "./components/GridPanel";
-
+import * as components from "./components/index";
+import { type LayoutHandle } from "./components/Layout/Cotrol";
 import styles from "./App.module.css";
 
 function App() {
@@ -29,12 +25,12 @@ function App() {
 
   return (
     <div className={styles.root}>
-      <GridPanel>
-        <FullScreen
+      <components.GridPanel.Cotrol>
+        <components.FullScreen.Cotrol
           isFullScreen={fullScreen}
           onFullScreenChange={onFullScreenChange}
         >
-          <Layout ref={layoutRef}
+          <components.Layout.Cotrol ref={layoutRef}
             onScaleChange={handleScaleChange}>
             <div
               css={css`
@@ -84,13 +80,13 @@ function App() {
               <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
               <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
             </div>
-          </Layout>
-        </FullScreen>
-      </GridPanel>
-      {(!preview && !fullScreen) && <SideBar isOpen={isOpen}>
+          </components.Layout.Cotrol>
+        </components.FullScreen.Cotrol>
+      </components.GridPanel.Cotrol>
+      {(!preview && !fullScreen) && <components.SideBar.Cotrol isOpen={isOpen}>
         <h1>サイドバー</h1>
-      </SideBar>}
-      <FloatingPanel>
+      </components.SideBar.Cotrol>}
+      <components.FloatingPanel.Cotrol>
         {preview && <>
           <button onClick={() => setpPeview(false)}>戻る</button>
         </>}
@@ -108,7 +104,7 @@ function App() {
           <button onClick={() => setpPeview(true)} children="プレビュー" />
           <button onClick={() => setFullScreen(true)} children="全画面表示" />
         </>}
-      </FloatingPanel>
+      </components.FloatingPanel.Cotrol>
     </div>
   );
 }
