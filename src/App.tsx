@@ -14,6 +14,7 @@ function App() {
   const layoutRef = React.useRef<LayoutHandle | null>(null);
 
   const [width, setWidth] = React.useState(1028);
+  const [scale, setScale] = React.useState(1028);
   const [preview, setpPeview] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [fullScreen, setFullScreen] = React.useState(false);
@@ -22,6 +23,10 @@ function App() {
     setFullScreen(isFullScreen);
   }, []);
 
+  const handleScaleChange = (_scale: number) => {
+    setScale(_scale);
+  };
+
   return (
     <div className={styles.root}>
       <GridPanel>
@@ -29,7 +34,8 @@ function App() {
           isFullScreen={fullScreen}
           onFullScreenChange={onFullScreenChange}
         >
-          <Layout ref={layoutRef}>
+          <Layout ref={layoutRef}
+            onScaleChange={handleScaleChange}>
             <div
               css={css`
             height: 100vh;
@@ -95,12 +101,12 @@ function App() {
           <button onClick={() => setIsOpen(!isOpen)} children="サイドバー" />
           <button onClick={() => layoutRef.current?.resetScale()} children="リセット" />
           <button onClick={() => layoutRef.current?.setScale(0.5)} children="50%" />
+          <span>{(scale * 100).toFixed(0)}%</span>
           <button onClick={() => setWidth(1280)} children="1280" />
           <button onClick={() => setWidth(768)} children="768" />
           <button onClick={() => setWidth(480)} children="480" />
           <button onClick={() => setpPeview(true)} children="プレビュー" />
           <button onClick={() => setFullScreen(true)} children="全画面表示" />
-          {/* <button onClick={() => layoutRef.current?.toggleFullScreen()} children="全画面表示" /> */}
         </>}
       </FloatingPanel>
     </div>

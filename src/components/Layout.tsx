@@ -7,8 +7,13 @@ export type LayoutHandle = {
   resetScale: () => void;
 };
 
-export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNode }>((props, ref) => {
-
+export const Layout = React.forwardRef<
+  LayoutHandle,
+  {
+    children?: React.ReactNode;
+    onScaleChange?: (scale: number) => void; // 親にスケール変更を通知するコールバック
+  }
+>((props, ref) => {
   React.useImperativeHandle(ref, () => ({
     setScale,
     resetScale,
@@ -38,16 +43,26 @@ export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNod
       const percentY = (y / rect.height) * 100;
 
       setOrigin(`${percentX}% ${percentY}%`);
-      _setScale((prev) => clampScale(prev * scaleFactor));
+      updateScale((prev) => clampScale(prev * scaleFactor));
     }
   };
 
+  const updateScale = (newScale: number | ((prev: number) => number)) => {
+    _setScale((prev) => {
+      const nextScale = typeof newScale === "function" ? newScale(prev) : newScale;
+      if (props.onScaleChange) {
+        props.onScaleChange(nextScale); // 親にスケール変更を通知
+      }
+      return nextScale;
+    });
+  };
+
   const setScale = (scale: number) => {
-    _setScale(scale);
+    updateScale(scale);
   };
 
   const resetScale = () => {
-    _setScale(1);
+    updateScale(1);
     setOrigin("50% 50%");
   };
 
@@ -55,10 +70,6 @@ export const Layout = React.forwardRef<LayoutHandle, { children?: React.ReactNod
     <>
       <div
         className={styles.container}
-        // style={{
-        //   transform: `scale(${_scale})`,
-        //   transformOrigin: origin,
-        // }}
         onWheel={handleWheel}
         tabIndex={0}
         style={{
