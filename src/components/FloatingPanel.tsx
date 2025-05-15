@@ -15,7 +15,7 @@ export const FloatingPanel = (props: { children: React.ReactNode }) => {
   const _style: React.CSSProperties = {
     position: "fixed",
     top: `${top}px`,
-    right: "50px",
+    right: "20px",
     transition: "transform 0.5s ease", // transform にアニメーションを適用
     transform: isBottom ? `translateY(calc(100vh - 100% - ${top * 2}px))` : "translateY(0)", // 上下の移動をスムーズに
   };

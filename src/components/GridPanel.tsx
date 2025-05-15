@@ -1,9 +1,9 @@
 import styles from "./GridPanel.module.css";
 
-export function GridPanel() {
+export const GridPanel = (props: { children?: React.ReactNode }) => {
   return (
     <div className={styles.root}>
-      パネル
+      {props.children}
     </div>
   );
 }
