@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./FloatingPanel.module.css";
 
-export function FloatingPanel({ children }) {
+export const FloatingPanel = (props: { children: React.ReactNode }) => {
   const [isBottom, setIsBottom] = useState(false);
 
   // const _style = {
@@ -12,7 +12,7 @@ export function FloatingPanel({ children }) {
   // };
 
   const top = 20;
-  const _style = {
+  const _style: React.CSSProperties = {
     position: "fixed",
     top: `${top}px`,
     right: "50px",
@@ -29,10 +29,10 @@ export function FloatingPanel({ children }) {
       <button onClick={handleButtonClick}>
         {isBottom ? "上に移動" : "下に移動"}
       </button>
-      {children}
+      {props.children}
     </div>
   );
-}
+};
 
 FloatingPanel.displayName = "FloatingPanel";
 export default FloatingPanel;

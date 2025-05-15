@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./GridPanel.module.css";
 
 export function GridPanel() {
@@ -9,5 +8,5 @@ export function GridPanel() {
   );
 }
 
-GridPanel.displayName = "Panel";
+GridPanel.displayName = "GridPanel";
 export default GridPanel;
