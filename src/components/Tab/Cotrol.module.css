@@ -1,0 +1,47 @@
+.root {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tabHeader {
+  display: flex;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.tabButton:hover {
+  background-color: #e0e0e0;
+}
+
+.tabButton.active {
+  background-color: #ffffff;
+  font-weight: bold;
+  border-bottom: 2px solid #0078d4;
+}
+
+.tabContent {
+  padding: 16px;
+  background-color: #ffffff;
+}
+
+.tabPane {
+  display: none;
+  /* 非表示 */
+}
+
+.tabPane.active {
+  display: block;
+  /* アクティブなタブのみ表示 */
+}

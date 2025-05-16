@@ -119,7 +119,15 @@ function App() {
           header={<components.ExpanderButton isExpanded={isExpanded1} setIsExpanded={setIsExpanded1}>
             {'タイトル'}
           </components.ExpanderButton>}>
-          {isExpanded1 && <p>これはセクション 1 の内容です。</p>}
+          {isExpanded1 && <div>
+            <components.Tab.Cotrol
+              tabs={[
+                { label: "タブ 1", content: <div>これはタブ 1 の内容です。</div> },
+                { label: "タブ 2", content: <div>これはタブ 2 の内容です。</div> },
+                { label: "タブ 3", content: <div>これはタブ 3 の内容です。</div> },
+              ]}
+            />
+          </div>}
         </components.Expander.Cotrol>
       </components.FloatingPanel.Cotrol>
 
