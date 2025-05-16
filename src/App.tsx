@@ -123,7 +123,7 @@ function App() {
         </components.Expander.Cotrol>
       </components.FloatingPanel.Cotrol>
 
-      <components.Dialog.Cotrol isOpenDialog={isOpenDialog1} setIsOpenDialog={setIsOpenDialog1}>
+      {isOpenDialog1 && <components.Dialog.Cotrol isOpenDialog={isOpenDialog1} setIsOpenDialog={setIsOpenDialog1}>
         <div css={css`
           display:flex;
           flex-direction: column;
@@ -133,9 +133,9 @@ function App() {
           <button onClick={() => setIsOpenDialog2(bef => !bef)} children="ダイアログ" />
           <button onClick={() => setIsOpenModeless2(bef => !bef)} children="モーダルレス" />
         </div>
-      </components.Dialog.Cotrol>
+      </components.Dialog.Cotrol>}
 
-      <components.Dialog.Cotrol isOpenDialog={isOpenModeless1} setIsOpenDialog={setIsOpenModeless1} isModeless>
+      {isOpenModeless1 && <components.Dialog.Cotrol isOpenDialog={isOpenModeless1} setIsOpenDialog={setIsOpenModeless1} isModeless>
         <div css={css`
           display:flex;
           flex-direction: column;
@@ -145,9 +145,9 @@ function App() {
           <button onClick={() => setIsOpenDialog2(bef => !bef)} children="ダイアログ" />
           <button onClick={() => setIsOpenModeless2(bef => !bef)} children="モーダルレス" />
         </div>
-      </components.Dialog.Cotrol>
+      </components.Dialog.Cotrol>}
 
-      <components.Dialog.Cotrol isOpenDialog={isOpenDialog2} setIsOpenDialog={setIsOpenDialog2}>
+      {isOpenDialog2 && <components.Dialog.Cotrol isOpenDialog={isOpenDialog2} setIsOpenDialog={setIsOpenDialog2}>
         <div css={css`
           display:flex;
           flex-direction: column;
@@ -155,9 +155,9 @@ function App() {
           <h1>ダイアログ 2</h1>
           <button onClick={() => setIsOpenDialog2(false)}>閉じる</button>
         </div>
-      </components.Dialog.Cotrol>
+      </components.Dialog.Cotrol>}
 
-      <components.Dialog.Cotrol isOpenDialog={isOpenModeless2} setIsOpenDialog={setIsOpenModeless2} isModeless>
+      {isOpenModeless2 && <components.Dialog.Cotrol isOpenDialog={isOpenModeless2} setIsOpenDialog={setIsOpenModeless2} isModeless>
         <div css={css`
           display:flex;
           flex-direction: column;
@@ -165,7 +165,7 @@ function App() {
           <h1>モーダルレス 2</h1>
           <button onClick={() => setIsOpenModeless2(false)}>閉じる</button>
         </div>
-      </components.Dialog.Cotrol>
+      </components.Dialog.Cotrol>}
     </div>
   );
 }
