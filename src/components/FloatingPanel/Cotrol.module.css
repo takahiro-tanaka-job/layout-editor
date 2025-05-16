@@ -1,7 +1,15 @@
 .root {
   display: flex;
+  flex-direction: column;
+  position: relative;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 5px;
   background: #ccc;
+}
+
+.button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

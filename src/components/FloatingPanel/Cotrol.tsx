@@ -19,7 +19,7 @@ export const Cotrol = (props: { children: React.ReactNode }) => {
 
   return (
     <div className={styles.root} style={_style}>
-      <button onClick={handleButtonClick}>
+      <button className={styles.button} onClick={handleButtonClick}>
         {isBottom ? "上に移動" : "下に移動"}
       </button>
       {props.children}
