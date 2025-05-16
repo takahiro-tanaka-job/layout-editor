@@ -12,9 +12,14 @@ function App() {
   const [width, setWidth] = React.useState(1028);
   const [scale, setScale] = React.useState(1028);
   const [preview, setpPeview] = React.useState(false);
+
+  const [isOpenDialog1, setIsOpenDialog1] = React.useState(false);
+  const [isOpenDialog2, setIsOpenDialog2] = React.useState(false);
+  const [isOpenModeless1, setIsOpenModeless1] = React.useState(false);
+  const [isOpenModeless2, setIsOpenModeless2] = React.useState(false);
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [fullScreen, setFullScreen] = React.useState(false);
-
   const [isExpanded1, setIsExpanded1] = React.useState(false);
 
   const onFullScreenChange = React.useCallback((isFullScreen: boolean) => {
@@ -97,6 +102,8 @@ function App() {
             <button onClick={() => setFullScreen(false)}>戻る</button>
           </>}
           {(!preview && !fullScreen) && <>
+            <button onClick={() => setIsOpenDialog1(bef => !bef)} children="ダイアログ" />
+            <button onClick={() => setIsOpenModeless1(bef => !bef)} children="モーダルレス" />
             <button onClick={() => setIsOpen(!isOpen)} children="サイドバー" />
             <button onClick={() => layoutRef.current?.resetScale()} children="リセット" />
             <button onClick={() => layoutRef.current?.setScale(0.5)} children="50%" />
@@ -115,6 +122,50 @@ function App() {
           {isExpanded1 && <p>これはセクション 1 の内容です。</p>}
         </components.Expander.Cotrol>
       </components.FloatingPanel.Cotrol>
+
+      <components.Dialog.Cotrol isOpenDialog={isOpenDialog1} setIsOpenDialog={setIsOpenDialog1}>
+        <div css={css`
+          display:flex;
+          flex-direction: column;
+        `}>
+          <h1>ダイアログ 1</h1>
+          <button onClick={() => setIsOpenDialog1(false)}>閉じる</button>
+          <button onClick={() => setIsOpenDialog2(bef => !bef)} children="ダイアログ" />
+          <button onClick={() => setIsOpenModeless2(bef => !bef)} children="モーダルレス" />
+        </div>
+      </components.Dialog.Cotrol>
+
+      <components.Dialog.Cotrol isOpenDialog={isOpenModeless1} setIsOpenDialog={setIsOpenModeless1} isModeless>
+        <div css={css`
+          display:flex;
+          flex-direction: column;
+        `}>
+          <h1>モーダルレス 1</h1>
+          <button onClick={() => setIsOpenModeless1(false)}>閉じる</button>
+          <button onClick={() => setIsOpenDialog2(bef => !bef)} children="ダイアログ" />
+          <button onClick={() => setIsOpenModeless2(bef => !bef)} children="モーダルレス" />
+        </div>
+      </components.Dialog.Cotrol>
+
+      <components.Dialog.Cotrol isOpenDialog={isOpenDialog2} setIsOpenDialog={setIsOpenDialog2}>
+        <div css={css`
+          display:flex;
+          flex-direction: column;
+        `}>
+          <h1>ダイアログ 2</h1>
+          <button onClick={() => setIsOpenDialog2(false)}>閉じる</button>
+        </div>
+      </components.Dialog.Cotrol>
+
+      <components.Dialog.Cotrol isOpenDialog={isOpenModeless2} setIsOpenDialog={setIsOpenModeless2} isModeless>
+        <div css={css`
+          display:flex;
+          flex-direction: column;
+        `}>
+          <h1>モーダルレス 2</h1>
+          <button onClick={() => setIsOpenModeless2(false)}>閉じる</button>
+        </div>
+      </components.Dialog.Cotrol>
     </div>
   );
 }

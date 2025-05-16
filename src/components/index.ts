@@ -1,3 +1,4 @@
+export * as Dialog from './Dialog/Cotrol'
 export * as Expander from './Expander/Cotrol'
 export { ExpanderButton } from './Expander/Cotrol'
 export * as FloatingPanel from './FloatingPanel/Cotrol'
