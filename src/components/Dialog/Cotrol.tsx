@@ -9,6 +9,7 @@ export const Cotrol = (props: {
 }) => {
 
   const dialogRef = React.useRef<HTMLDialogElement>(null);
+  const [maximized, SetMaximized] = React.useState(false);
 
   React.useEffect(() => {
     enableDrag(dialogRef.current!);
@@ -65,9 +66,12 @@ export const Cotrol = (props: {
   return (
     <dialog
       ref={dialogRef}
-      className={styles.root}
+      className={`${styles.root} ${maximized ? styles.maximized : ""}`}
       onClose={() => props.setIsOpenDialog(false)}
     >
+      <button className={styles.maximized} onClick={() => SetMaximized(bef => !bef)}>
+        {maximized ? '🗗' : '⛶'}
+      </button>
       {props.children}
     </dialog>
   );

@@ -11,7 +11,17 @@
   margin: 0;
 }
 
-.modeless::backdrop {
-  /* モーダル背景を無効化 */
-  /* display: none; */
+.root.maximized {
+  width: 98vw;
+  height: 98vh;
+  top: 1vw !important;
+  left: 1vh !important;
+  transform: none;
+}
+
+button.maximized {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 0;
 }
