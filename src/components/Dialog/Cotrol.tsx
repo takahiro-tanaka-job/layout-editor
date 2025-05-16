@@ -30,16 +30,21 @@ export const Cotrol = (props: {
     let isDragging = false;
 
     const handleMouseDown = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).tagName === 'BUTTON') return;
+      if ((e.target as HTMLElement).tagName === "BUTTON") return;
       isDragging = true;
+
       const rect = dialog.getBoundingClientRect();
+
+      // 現在の位置を計算して固定
+      dialog.style.left = `${rect.left}px`;
+      dialog.style.top = `${rect.top}px`;
+      dialog.style.transform = "none"; // transform をリセット
+
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-      dialog.style.position = 'fixed';
-      dialog.style.margin = '0';
-      dialog.style.transform = 'none';
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -50,11 +55,11 @@ export const Cotrol = (props: {
 
     const handleMouseUp = () => {
       isDragging = false;
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
 
-    dialog.addEventListener('mousedown', handleMouseDown);
+    dialog.addEventListener("mousedown", handleMouseDown);
   };
 
   return (
